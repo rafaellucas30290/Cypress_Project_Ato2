@@ -7,8 +7,9 @@ class gov_page {
         campoPesquisa: '#searchtext-input',
         painelSugestoes: '.aa-Panel',
         listaServicos: '#searchtext-servicos-list',
-        itemSugestao: '.aa-Item'
-
+        itemSugestao: '.aa-Item',
+        botaoAltoContraste: 'button[aria-label="Alto contraste"]',
+        body: 'body'
     }
 
     visitar(url) {
@@ -43,5 +44,17 @@ class gov_page {
     clicarNoLink(textoDoLink) {
         cy.contains('a', textoDoLink).should('be.visible').click();
     }
+
+    ativarAltoContraste () {
+        cy.get(this.elementos.botaoAltoContraste, { includeShadowDom: true })
+        .should('be.visible')
+        .click( { force: true });
+    }
+
+    validarAltoContraste () {
+        cy.get(this.elementos.body).should('have.class', 'contraste');
+    }
+
+    
 }
 export default new gov_page();
