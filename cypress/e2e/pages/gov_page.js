@@ -9,13 +9,16 @@ class gov_page {
         listaServicos: '#searchtext-servicos-list',
         itemSugestao: '.aa-Item',
         botaoAltoContraste: 'button[aria-label="Alto contraste"]',
-        body: 'body'
+        body: 'body',
+        Libras: '.vp-access-button'
     }
 
     visitar(url) {
         cy.visit(url || 'https://www.gov.br');
     }
-
+    clicarNoLibras() {
+        cy.get(this.elementos.Libras).should('be.visible').click();
+    }
     validarSugestoesApareceram() {
     cy.get(this.elementos.painelSugestoes)
       .should('be.visible');
@@ -54,7 +57,10 @@ class gov_page {
     validarAltoContraste () {
         cy.get(this.elementos.body).should('have.class', 'contraste');
     }
-
+    validarVLibrasVisivel() {
+    cy.get('#\\#canvas', { timeout: 15000 }) // Aumentamos o timeout porque widgets externos demoram
+      .should('be.visible');
+}
     
 }
 export default new gov_page();
